@@ -2,7 +2,11 @@ import { getDashboardMetrics } from "@/lib/actions/contract-actions";
 import { KpiCards } from "@/components/dashboard/kpi-cards";
 import { CoreBusinessChart } from "@/components/dashboard/core-business-chart";
 import { StatusDonutChart } from "@/components/dashboard/status-donut-chart";
-import { Sparkles, Database } from "lucide-react";
+import { PeriodTrendChart } from "@/components/dashboard/period-trend-chart";
+import { SourcingStrategyChart } from "@/components/dashboard/sourcing-strategy-chart";
+import { TopVendorsChart } from "@/components/dashboard/top-vendors-chart";
+import { ExpirationTimelineChart } from "@/components/dashboard/expiration-timeline-chart";
+import { Database } from "lucide-react";
 
 export const revalidate = 0; // Selalu dapatkan data terbaru
 
@@ -10,7 +14,7 @@ export default async function DashboardPage() {
   const metrics = await getDashboardMetrics();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 space-y-8 pb-12">
       {/* Supabase Notification Banner if not connected */}
       {!metrics.isConnectedToSupabase && (
         <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 p-4 dark:border-blue-900/50 dark:from-blue-950/30 dark:to-indigo-950/30">
@@ -44,10 +48,22 @@ export default async function DashboardPage() {
         <KpiCards metrics={metrics} />
       </section>
 
-      {/* Visualisasi Grafik (Recharts) */}
+      {/* Baris 1: Tren Periode & Rasio Strategi Sourcing (No. 1 & No. 2) */}
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <PeriodTrendChart data={metrics.periodTrend} />
+        <SourcingStrategyChart data={metrics.sourcingStrategyComposition} />
+      </section>
+
+      {/* Baris 2: Core Business & Status Operasional Kontrak */}
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <CoreBusinessChart data={metrics.coreBusinessDistribution} />
         <StatusDonutChart data={metrics.contractStatusComposition} />
+      </section>
+
+      {/* Baris 3: Top 10 Mitra & Kalender Proyeksi Jatuh Tempo (No. 3 & No. 5) */}
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <TopVendorsChart data={metrics.topVendors} />
+        <ExpirationTimelineChart data={metrics.expirationTimeline} />
       </section>
     </div>
   );

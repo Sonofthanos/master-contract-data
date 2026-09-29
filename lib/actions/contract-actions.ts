@@ -447,6 +447,21 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics & { isConn
     Other: { P: 0, B: 0, Amandemen: 0, Other: 0 },
   };
 
+  // 1. Period Trend
+  const periodMap: Record<string, number> = {};
+  // 2. Sourcing Strategy
+  const sourcingMap: Record<string, number> = { Renewal: 0, New: 0, AMD: 0, Other: 0 };
+  // 3. Vendor stats for Top 10
+  const vendorStats: Record<string, { name: string; count: number; active: number; expired: number }> = {};
+  // 4. Expiration Timeline (Next 12 Months)
+  const monthBuckets: Record<string, number> = {};
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  for (let i = 0; i < 12; i++) {
+    const mDate = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const key = `${monthNames[mDate.getMonth()]} ${mDate.getFullYear()}`;
+    monthBuckets[key] = 0;
+  }
+
   for (const c of contracts) {
     const status = resolveContractStatusSync(c.contract_date_to, c.contract_status);
     if (status === 'Active' || status === 'Valid') activeContracts++;
@@ -485,6 +500,45 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics & { isConn
     else if (cType === 'B') categoryBreakdownMap[cat].B++;
     else if (cType === 'AMANDEMEN' || cType === 'AMD') categoryBreakdownMap[cat].Amandemen++;
     else categoryBreakdownMap[cat].Other++;
+
+    // Period Trend
+    const p = c.period ? String(c.period).trim() : null;
+    if (p && !p.startsWith('=')) {
+      periodMap[p] = (periodMap[p] || 0) + 1;
+    }
+
+    // Sourcing Strategy
+    const s = (c.remarks_sourcing || '').trim().toUpperCase();
+    if (s === 'RENEWAL') sourcingMap.Renewal++;
+    else if (s === 'NEW') sourcingMap.New++;
+    else if (s === 'AMD' || s === 'AMANDEMEN') sourcingMap.AMD++;
+    else if (s && !s.startsWith('=')) sourcingMap.Other++;
+
+    // Vendor Stats for Top 10
+    const vName = c.vendor_name ? c.vendor_name.trim() : 'Unknown';
+    if (!vendorStats[vName]) {
+      vendorStats[vName] = { name: vName, count: 0, active: 0, expired: 0 };
+    }
+    vendorStats[vName].count++;
+    if (status === 'Active' || status === 'Valid') {
+      vendorStats[vName].active++;
+    } else {
+      vendorStats[vName].expired++;
+    }
+
+    // Expiration Timeline (Next 12 Months)
+    if (c.contract_date_to) {
+      const parts = c.contract_date_to.split('-');
+      if (parts.length === 3) {
+        const exp = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        if (exp >= now) {
+          const key = `${monthNames[exp.getMonth()]} ${exp.getFullYear()}`;
+          if (monthBuckets[key] !== undefined) {
+            monthBuckets[key]++;
+          }
+        }
+      }
+    }
   }
 
   const scanDocComplianceRate = totalContracts > 0 ? Math.round((scanDocDoneCount / totalContracts) * 100) : 0;
@@ -509,6 +563,27 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics & { isConn
     { category: 'Others / Unassigned', ...categoryBreakdownMap.Other },
   ];
 
+  // 1. Period Trend
+  const periodTrend = Object.entries(periodMap)
+    .map(([period, count]) => ({ period, count }))
+    .sort((a, b) => a.period.localeCompare(b.period));
+
+  // 2. Sourcing Strategy Composition
+  const sourcingStrategyComposition = [
+    { name: 'Renewal (Perpanjangan)', value: sourcingMap.Renewal, color: '#3B82F6' },
+    { name: 'New Partner (Mitra Baru)', value: sourcingMap.New, color: '#10B981' },
+    { name: 'Amandemen (AMD)', value: sourcingMap.AMD, color: '#F59E0B' },
+    ...(sourcingMap.Other > 0 ? [{ name: 'Lainnya', value: sourcingMap.Other, color: '#8B5CF6' }] : []),
+  ];
+
+  // 3. Top 10 Vendors
+  const topVendors = Object.values(vendorStats)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  // 4. Expiration Timeline
+  const expirationTimeline = Object.entries(monthBuckets).map(([month, count]) => ({ month, count }));
+
   return {
     totalContracts,
     totalActiveVendors,
@@ -521,6 +596,10 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics & { isConn
     coreBusinessDistribution,
     contractStatusComposition,
     contractTypeBreakdown,
+    periodTrend,
+    sourcingStrategyComposition,
+    topVendors,
+    expirationTimeline,
     isConnectedToSupabase,
   };
 }

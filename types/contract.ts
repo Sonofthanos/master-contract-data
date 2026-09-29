@@ -57,4 +57,8 @@ export interface DashboardMetrics {
     Amandemen: number;
     Other: number;
   }[];
+  periodTrend: { period: string; count: number }[];
+  sourcingStrategyComposition: { name: string; value: number; color: string }[];
+  topVendors: { name: string; count: number; active: number; expired: number }[];
+  expirationTimeline: { month: string; count: number }[];
 }
