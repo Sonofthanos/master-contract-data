@@ -73,8 +73,8 @@ export function ContractDetailModal({
               <span className="font-medium text-slate-900 dark:text-white">{contract.core_business || "-"}</span>
               <span>Result Selection:</span>
               <span className="font-medium text-slate-900 dark:text-white">{contract.result_selection || "-"}</span>
-              <span>RFC:</span>
-              <span className="font-medium text-slate-900 dark:text-white">{contract.rfc || "-"}</span>
+              <span>Request For Contract (RFC):</span>
+              <span className="font-medium text-slate-900 dark:text-white">{formatDate(contract.rfc)}</span>
             </div>
           </div>
 

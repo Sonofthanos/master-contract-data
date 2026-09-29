@@ -18,6 +18,7 @@ import { ContractDetailModal } from "./contract-detail-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CORE_BUSINESS_LIST, CONTRACT_TYPES } from "@/lib/constants";
+import { formatDate } from "@/lib/utils";
 import { 
   Search, 
   Plus, 
@@ -150,6 +151,7 @@ export function ContractTable({ initialData, isConnectedToSupabase }: ContractTa
         "Tanggal Berakhir": c.contract_date_to || "-",
         "Scan Dokumen": c.scan_doc_status,
         "Upload Dokumen": c.upload_contract_status,
+        "Request For Contract (RFC)": c.rfc ? formatDate(c.rfc) : "-",
         "Draft Sent": c.draft_sent_date || "-",
         "Draft Return": c.draft_return_date || "-",
         "Final Approval": c.final_approval_date || "-",

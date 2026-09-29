@@ -166,7 +166,7 @@ export function parseContractWorkbook(buffer: ArrayBuffer | Uint8Array): Contrac
         core_business: coreBusiness,
         vendor_category: (getRowValue(row, ["VENDOR CATEGORY", "Vendor Category", "Kategori"]) as string) || null,
         result_selection: (getRowValue(row, ["Result Selection", "Result"]) as string) || null,
-        rfc: (getRowValue(row, ["RFC (Request For Contract)", "RFC"]) as string) || null,
+        rfc: (getRowValue(row, ["Request For Contract (RFC)", "Request For Contract", "RFC (Request For Contract)", "RFC"]) as string) || null,
         remarks_sourcing: remarksSourcing ? String(remarksSourcing).trim() : null,
         contract_type: contractType,
         contract_number: contractNoStr,
