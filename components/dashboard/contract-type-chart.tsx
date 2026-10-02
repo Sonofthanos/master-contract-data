@@ -31,14 +31,9 @@ export function ContractTypeChart({ data }: ContractTypeChartProps) {
           <div className="p-1.5 rounded-lg bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400">
             <Layers className="h-4 w-4" />
           </div>
-          <div>
-            <CardTitle className="text-base font-semibold">
-              Breakdown Tipe Kontrak per Kategori Vendor
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Distribusi jenis P, B, dan Amandemen pada vendor Small & Medium
-            </CardDescription>
-          </div>
+          <CardTitle className="text-base font-semibold">
+            Tipe Kontrak per Kategori Vendor
+          </CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-1 pt-4 pb-2">

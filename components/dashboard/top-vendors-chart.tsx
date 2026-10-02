@@ -31,14 +31,9 @@ export function TopVendorsChart({ data }: TopVendorsChartProps) {
           <div className="p-1.5 rounded-lg bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400">
             <Building2 className="h-4 w-4" />
           </div>
-          <div>
-            <CardTitle className="text-base font-semibold">
-              Top 10 Mitra dengan Kontrak Terbanyak
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Distribusi volume portofolio kontrak aktif vs expired per mitra utama
-            </CardDescription>
-          </div>
+          <CardTitle className="text-base font-semibold">
+            Top 10 Mitra Kontrak Terbanyak
+          </CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-1 pt-4 pb-2">

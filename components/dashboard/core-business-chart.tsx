@@ -34,14 +34,9 @@ export function CoreBusinessChart({ data }: CoreBusinessChartProps) {
           <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
             <Briefcase className="h-4 w-4" />
           </div>
-          <div>
-            <CardTitle className="text-base font-semibold">
-              Distribusi Top 7 Core Business
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Konsentrasi bidang usaha mitra kerja TBIG
-            </CardDescription>
-          </div>
+          <CardTitle className="text-base font-semibold">
+            Top 7 Core Business
+          </CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-1 pt-4 pb-2">

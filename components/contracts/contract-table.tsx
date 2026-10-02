@@ -19,12 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CORE_BUSINESS_LIST, CONTRACT_TYPES } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
-import { 
-  Search, 
-  Plus, 
-  ChevronLeft, 
-  ChevronRight, 
-  ChevronsLeft, 
+import {
+  Search,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
   ChevronsRight,
   FileSpreadsheet,
   Download
@@ -151,12 +151,12 @@ export function ContractTable({ initialData, isConnectedToSupabase }: ContractTa
         "Tanggal Berakhir": c.contract_date_to || "-",
         "Scan Dokumen": c.scan_doc_status,
         "Upload Dokumen": c.upload_contract_status,
-        "Request For Contract (RFC)": c.rfc ? formatDate(c.rfc) : "-",
+        "Request For Contract": c.rfc ? formatDate(c.rfc) : "-",
         "Draft Sent": c.draft_sent_date || "-",
         "Draft Return": c.draft_return_date || "-",
         "Final Approval": c.final_approval_date || "-",
         "PIC Email": c.pic_email || "-",
-        "Catatan Internal": c.remarks_internal || "-",
+        "Remark": c.remarks_internal || "-",
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(exportRows);
@@ -337,9 +337,9 @@ export function ContractTable({ initialData, isConnectedToSupabase }: ContractTa
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </th>
                   ))}
                 </tr>

@@ -369,10 +369,10 @@ export function ContractFormModal({
 
             <div>
               <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                Catatan Internal (Remarks)
+                Remark
               </label>
               <Input
-                placeholder="Catatan tambahan internal..."
+                placeholder="Catatan / remark..."
                 {...register("remarks_internal")}
                 className="mt-1"
               />

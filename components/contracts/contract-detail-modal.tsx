@@ -133,7 +133,7 @@ export function ContractDetailModal({
                 <span>{contract.action_status || "-"} {contract.action_date ? `(${formatDate(contract.action_date)})` : ""}</span>
               </div>
               <div>
-                <span className="font-semibold block text-slate-700 dark:text-slate-300">Catatan Internal:</span>
+                <span className="font-semibold block text-slate-700 dark:text-slate-300">Remark:</span>
                 <span className="italic">{contract.remarks_internal || "-"}</span>
               </div>
               {contract.case_hold_terminate && (

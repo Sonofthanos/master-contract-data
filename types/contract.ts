@@ -59,6 +59,8 @@ export interface DashboardMetrics {
   }[];
   periodTrend: { period: string; count: number }[];
   sourcingStrategyComposition: { name: string; value: number; color: string }[];
+  contractCategoryComposition?: { name: string; value: number; color: string }[];
+  expiringContractsList?: Contract[];
   topVendors: { name: string; count: number; active: number; expired: number }[];
   expirationTimeline: { month: string; count: number }[];
 }

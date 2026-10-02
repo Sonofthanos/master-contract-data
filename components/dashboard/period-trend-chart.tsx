@@ -26,14 +26,9 @@ export function PeriodTrendChart({ data }: PeriodTrendChartProps) {
           <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
             <TrendingUp className="h-4 w-4" />
           </div>
-          <div>
-            <CardTitle className="text-base font-semibold">
-              Tren Volume Kontrak per Periode
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Pertumbuhan aktivitas perjanjian kerja sama per tahun (2021 – 2026)
-            </CardDescription>
-          </div>
+          <CardTitle className="text-base font-semibold">
+            Tren Periode Kontrak
+          </CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-1 pt-4 pb-2">

@@ -3,7 +3,7 @@ import { KpiCards } from "@/components/dashboard/kpi-cards";
 import { CoreBusinessChart } from "@/components/dashboard/core-business-chart";
 import { StatusDonutChart } from "@/components/dashboard/status-donut-chart";
 import { PeriodTrendChart } from "@/components/dashboard/period-trend-chart";
-import { SourcingStrategyChart } from "@/components/dashboard/sourcing-strategy-chart";
+import { ContractCategoryChart } from "@/components/dashboard/contract-category-chart";
 import { TopVendorsChart } from "@/components/dashboard/top-vendors-chart";
 import { ExpirationTimelineChart } from "@/components/dashboard/expiration-timeline-chart";
 import { Database } from "lucide-react";
@@ -32,15 +32,10 @@ export default async function DashboardPage() {
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-            Vendor Contract Dashboard
-          </h1>
-        </div>
-        <p className="text-sm text-slate-500">
-          Monitoring kontrak mitra, tenggat waktu, dan status kontrak.
-        </p>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+          Vendor Contract Dashboard
+        </h1>
       </div>
 
       {/* KPI Metric Cards */}
@@ -48,10 +43,10 @@ export default async function DashboardPage() {
         <KpiCards metrics={metrics} />
       </section>
 
-      {/* Baris 1: Tren Periode & Rasio Strategi Sourcing (No. 1 & No. 2) */}
+      {/* Baris 1: Tren Periode & Kategori Kontrak */}
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <PeriodTrendChart data={metrics.periodTrend} />
-        <SourcingStrategyChart data={metrics.sourcingStrategyComposition} />
+        <ContractCategoryChart data={metrics.contractCategoryComposition || metrics.sourcingStrategyComposition} />
       </section>
 
       {/* Baris 2: Core Business & Status Operasional Kontrak */}

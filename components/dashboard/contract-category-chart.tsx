@@ -9,24 +9,24 @@ import {
   Legend,
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { PieChart as PieChartIcon } from "lucide-react";
+import { Layers } from "lucide-react";
 
-interface StatusDonutChartProps {
+export interface ContractCategoryChartProps {
   data: { name: string; value: number; color: string }[];
 }
 
-export function StatusDonutChart({ data }: StatusDonutChartProps) {
+export function ContractCategoryChart({ data }: ContractCategoryChartProps) {
   const total = data.reduce((acc, curr) => acc + curr.value, 0);
 
   return (
     <Card className="flex flex-col h-full shadow-sm border-slate-200/80 dark:border-slate-800">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">
-            <PieChartIcon className="h-4 w-4" />
+          <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
+            <Layers className="h-4 w-4" />
           </div>
           <CardTitle className="text-base font-semibold">
-            Status Kontrak
+            Kategori Kontrak
           </CardTitle>
         </div>
       </CardHeader>
@@ -73,7 +73,7 @@ export function StatusDonutChart({ data }: StatusDonutChartProps) {
               <Legend
                 verticalAlign="bottom"
                 iconType="circle"
-                wrapperStyle={{ fontSize: "12px", paddingTop: "12px" }}
+                wrapperStyle={{ fontSize: "11px", paddingTop: "12px" }}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -82,3 +82,6 @@ export function StatusDonutChart({ data }: StatusDonutChartProps) {
     </Card>
   );
 }
+
+// Backward compatibility alias
+export const SourcingStrategyChart = ContractCategoryChart;

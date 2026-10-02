@@ -28,17 +28,12 @@ export function ExpirationTimelineChart({ data }: ExpirationTimelineChartProps) 
             <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400">
               <CalendarClock className="h-4 w-4" />
             </div>
-            <div>
-              <CardTitle className="text-base font-semibold">
-                Proyeksi Jatuh Tempo Kontrak (12 Bulan ke Depan)
-              </CardTitle>
-              <CardDescription className="text-xs">
-                Persebaran waktu berakhirnya kontrak aktif untuk perencanaan renewal dini
-              </CardDescription>
-            </div>
+            <CardTitle className="text-base font-semibold">
+              Proyeksi Jatuh Tempo (12 Bulan)
+            </CardTitle>
           </div>
           <span className="hidden sm:inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900">
-            {totalUpcoming} Kontrak Expiring
+            {totalUpcoming} Kontrak
           </span>
         </div>
       </CardHeader>
